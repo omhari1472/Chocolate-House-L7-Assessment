@@ -1,0 +1,39 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Seasonal Flavors{% endblock %}
+
+{% block content %}
+    <div class="header-container">
+        <h1>Our Seasonal Chocolate Flavors</h1>
+        
+    
+    <div class="grid">
+        {% for flavor in flavors %}
+            <div class="card">
+                <h2>{{ flavor.name }}</h2>
+                <p>{{ flavor.description }}</p>
+                <p><strong>Season:</strong> {{ flavor.season.name }}</p>
+                
+                {% if flavor.get_allergens %}
+                    <div class="alert alert-error">
+                        <strong>Allergens:</strong>
+                        <ul>
+                            {% for allergen in flavor.get_allergens %}
+                                <li>{{ allergen.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+                <h3>Ingredients:</h3>
+                <ul>
+                    {% for ingredient in flavor.ingredients.all %}
+                        <li>{{ ingredient.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% empty %}
+            <p>No flavors available at the moment.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

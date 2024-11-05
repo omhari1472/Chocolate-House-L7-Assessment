@@ -1,0 +1,44 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Suggest a flavour{% endblock %}
+
+{% block content %}
+    <h1>Suggest a New Chocolate flavour</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_customer_name">Your Name:</label>
+            {{ form.customer_name }}
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="id_flavour_name">Suggested flavour Name:</label>
+            {{ form.flavour_name }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_description">Description:</label>
+            {{ form.description }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_allergies">Allergy Concerns (if any):</label>
+            {{ form.allergies }}
+        </div>
+        
+        {% if form.errors %}
+            <div class="alert alert-error">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <button type="submit">Submit Suggestion</button>
+    </form>
+{% endblock %}

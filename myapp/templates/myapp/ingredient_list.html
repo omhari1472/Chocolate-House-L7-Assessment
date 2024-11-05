@@ -1,0 +1,46 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Ingredient Inventory{% endblock %}
+
+{% block content %}
+    <h1>Ingredient Inventory</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Ingredient</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Status</th>
+                <th>Allergen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ingredient in ingredients %}
+                <tr>
+                    <td>{{ ingredient.name }}</td>
+                    <td>{{ ingredient.quantity }}</td>
+                    <td>{{ ingredient.unit }}</td>
+                    <td>
+                        {% if ingredient.is_low_stock %}
+                            <span style="color: red;">Low Stock</span>
+                        {% else %}
+                            <span style="color: green;">In Stock</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if ingredient.allergen %}
+                            <span style="color: red;">Yes</span>
+                        {% else %}
+                            No
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No ingredients available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
